@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Halaman Profil Q</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f0f0f;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(90deg, #1e3c72, #2a5298);
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      font-size: 1.5em;
+      color: #fff;
+      text-shadow: 0 0 10px #60d3e8;
+      /* border-right: 2px solid #60d3e8; */
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typing 4s steps(30) infinite alternate 3s, blink 0.5s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 22ch; }
+    }
+
+    @keyframes blink {
+      0% { border-color: #60d3e8; }
+      50% { border-color: transparent; }
+      100% { border-color: #60d3e8; }
+    }
+    
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 12px;
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 30%;
+      height: 3px;
+      background: #0ff;
+      border-radius: 2px;
+      transform: translateX(-100%);
+      animation: kitt-scan 2s linear infinite;
+      opacity: 0;
+    }
+
+    nav a:hover::after {
+      opacity: 1;
+    }
+
+    @keyframes kitt-scan {
+      0% {
+        transform: translateX(-100%);
+      }
+      50% {
+        transform: translateX(200%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    main {
+      padding: 30px;
+      display: grid;
+      gap: 30px;
+    }
+
+    section {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      align-items: center;
+    }
+
+    .hero img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 2px solid #0ff;
+    }
+
+    .hero h2 {
+      color: #0ff;
+      margin-bottom: 10px;
+      animation: neon 1.5s ease-in-out infinite alternate;
+    }
+
+    .btn-wrapper {
+      position: relative;
+      display: inline-block;
+      border-radius: 50px;
+      overflow: hidden;
+    }
+
+    .btn-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50px;
+      padding: 2px;
+      background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        #f00 90deg,
+        transparent 180deg,
+        #f00 270deg,
+        transparent 360deg
+      );
+      animation: rotate-scan 2s linear infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .btn-wrapper button {
+      position: relative;
+      z-index: 2;
+      background: #0ff;
+      color: #000;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.3s;
+    }
+
+    .btn-wrapper button:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes rotate-scan {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .biodata h3,
+    .portfolio h3,
+    .contact h3 {
+      text-align: center;
+      color: #0ff;
+      margin-bottom: 20px;
+      animation: neon 2s ease-in-out infinite alternate;
+    }
+
+    .biodata-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .biodata-grid div {
+      background: #252525;
+      padding: 15px;
+      border-radius: 10px;
+      border: 2px solid #0ff;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .biodata-grid div:hover {
+      transform: scale(1.05);
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      align-items: start;
+    }
+
+    .project {
+      background: #252525;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      border: 2px solid #0ff;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .project img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .project:hover {
+      transform: scale(1.05);
+    }
+
+    @keyframes neon {
+      from { text-shadow: 0 0 1px #33eaff, 0 0 2px #33eaff; }
+      to { text-shadow: 0 0 2px #33eaff, 0 0 4px #33eaff; }
+    }
+
+    .rgb-kitt {
+  position: relative;
+  height: 4px;
+  width: 200px;
+  margin: 0 auto 20px auto;
+  background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+  background-size: 300%;
+  animation: rgb-slide 2s linear infinite;
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(0,255,255,0.6);
+        }
+
+        @keyframes rgb-slide {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+        }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>=| Tugas 2 EduWork |=</h1>
+    <nav>
+      <a href="#hero">Home</a>
+      <a href="#biodata">Biodata</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#contact">Contact</a>
+      <a href="#footer">Footer</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero-text">
+        <h2>Selamat Datang di Website Saya</h2>
+        <p>Ini adalah contoh header dengan dua kolom. Kolom kiri berisi teks seperti ini.</p>
+        <br>
+        <form action="https://eduwork.id" target="_blank">
+          <div class="btn-wrapper">
+            <button type="submit">Pelajari Lebih Lanjut</button>
+          </div>
+        </form>
+      </div>
+      <div class="hero-image">
+        <img src="E:\\App_Project\\TUGAS EDUWORK\\pptugas1.png" alt="Foto Profil">
+      </div>
+    </section>
+
+    <section class="biodata" id="biodata">
+      <h3>My Biodata</h3>
+      <div class="rgb-kitt"></div>
+        <br>
+      <div class="biodata-grid">
+        <div><b>Full Name</b><br>Ace D Portggas</div>
+        <div><b>Education</b><br>Pelajar Abadi</div>
+        <div><b>Pekerjaan</b><br>CEO PT Sendiri aamiin</div>
+        <div><b>Contact</b><br>you@call.me</div>
+        <div><b>Hobi</b><br>Memancing dan Main Bola</div>
+        <div><b>Alamat</b><br>Dibawah Langit Beralaskan Tanah</div>
+      </div>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+      <h3>Portofolio</h3>
+      <div class="rgb-kitt"></div>
+      <div class="portfolio-grid">
+        <div class="project">
+          <img src="E:\\App_Project\\TUGAS EDUWORK\\Project1.png" alt="Proyek 1">
+          <b>Proyek 1</b><br>
+          Pembuatan Kapal Pesanan Lyuffy Inc yang ditunggu sama Boa H
+        </div>
+        <div class="project">
+          <img src="E:\\App_Project\\TUGAS EDUWORK\\project2.png" alt="Proyek 2">
+          <b>Proyek 2</b><br>
+          Pembuatan Kapal Pesanan Marine United Yang Kalah Mulu Aaah
+        </div>
+        <div class="project">
+          <img src="E:\\App_Project\\TUGAS EDUWORK\\project3.png" alt="Proyek 3">
+          <b>Proyek 3</b><br>
+          Pembuatan Kapal Pesanan Shank Corp yang ditunggu sama Zoro
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
