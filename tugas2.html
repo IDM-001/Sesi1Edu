@@ -1,0 +1,308 @@
+<!DOCTYPE html> 
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Halaman Profil Biodata Ace D Portggas</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f0f0f;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(90deg, #1e3c72, #2a5298);
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      font-size: 1.5em;
+      color: #fff;
+      text-shadow: 0 0 5px #0ff;
+      animation: neon 2s ease-in-out infinite alternate;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 12px;
+      border-radius: 20px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    nav a:hover {
+      background: #0ff;
+      color: #000;
+    }
+
+    main {
+      padding: 30px;
+      display: grid;
+      gap: 30px;
+    }
+
+    section {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      align-items: center;
+    }
+
+    .hero img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 2px solid #0ff;
+    }
+
+    .hero h2 {
+      color: #0ff;
+      margin-bottom: 10px;
+      animation: neon 1.5s ease-in-out infinite alternate;
+    }
+
+    .hero button {
+      background: #0ff;
+      color: #000;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.3s;
+    }
+
+    .hero button:hover {
+      transform: scale(1.1);
+    }
+
+    /* Biodata */
+    .biodata h3,
+    .portfolio h3,
+    .contact h3 {
+      text-align: center;
+      color: #0ff;
+      margin-bottom: 20px;
+      animation: neon 2s ease-in-out infinite alternate;
+    }
+
+    .biodata-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .biodata-grid div {
+      background: #252525;
+      padding: 15px;
+      border-radius: 10px;
+      border: 2px solid #0ff;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .biodata-grid div:hover {
+      transform: scale(1.05);
+    }
+
+    /* Portfolio */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .project {
+      background: #252525;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      border: 2px solid #0ff;
+      transition: transform 0.3s;
+    }
+
+    .project img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .project:hover {
+      transform: scale(1.05);
+    }
+
+    /* Contact */
+    .contact form {
+      max-width: 500px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .contact input,
+    .contact textarea {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    .contact button {
+      background: #0ff;
+      color: #000;
+      padding: 10px;
+      border: none;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .contact button:hover {
+      transform: scale(1.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #111;
+      color: #888;
+      margin-top: 30px;
+    }
+
+    @keyframes neon {
+      from {
+        text-shadow:
+          0 0 5px #0ff,
+          0 0 10px #0ff,
+          0 0 20px #0ff;
+      }
+      to {
+        text-shadow:
+          0 0 7px #0ff,
+          0 0 15px #0ff,
+          0 0 25px #0ff;
+      }
+    }
+
+    @media(max-width: 600px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+      }
+      .biodata-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>=| Tugas 2 EduWork |=</h1>
+    <nav>
+      <a href="#hero">Home</a>
+      <a href="#biodata">Biodata</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="hero-text">
+        <h2>Selamat Datang di Website Saya</h2>
+        <p>Ini adalah contoh header dengan dua kolom. Kolom kiri berisi teks seperti ini.</p>
+        <form action="https://eduwork.id" target="_blank">
+          <br>
+          <button type="submit">Pelajari Lebih Lanjut</button>
+        </form>
+      </div>
+      <div class="hero-image">
+        <p style="text-align:center; margin-bottom: 10px;">Foto Profile</p>
+        <img src="E:/App_Project/TUGAS EDUWORK/pptugas1.png" alt="Foto Profil">
+      </div>
+    </section>
+
+    <!-- Biodata Section -->
+    <section class="biodata" id="biodata">
+      <h3>Tentang Aq</h3>
+      <p style="text-align:center;">Biodata singkat Q</p>
+      <div class="biodata-grid">
+        <div><b>Full Name</b><br>Ace D Portggas</div>
+        <div><b>Education</b><br>Kampus Cinta Damai Jurusan Pulo Gebang</div>
+        <div><b>Pekerjaan</b><br>CEO PT Sendiri aamiin</div>
+        <div><b>Contact</b><br>apasih@email.kamu</div>
+        <div><b>Hobi</b><br>Memancing dan Main Bola</div>
+        <div><b>Alamat</b><br>DIbawah Langit Beralaskan Tanah Gang 11</div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+      <h3>Portofolio</h3>
+      <div class="portfolio-grid">
+        <div class="project">
+          <img src="E:/App_Project/TUGAS EDUWORK/Project1.png" alt="Proyek 1">
+          <b>Proyek 1</b><br>
+          Pembuatan Kapal Pesanan Lyuffy Inc
+        </div>
+        <div class="project">
+          <img src="E:/App_Project/TUGAS EDUWORK/project2.png" alt="Proyek 2">
+          <b>Proyek 2</b><br>
+          Pembuatan Kapal Pesanan Marine United Yang Kalah Mulu Aaah
+        </div>
+        <div class="project">
+          <img src="E:/App_Project/TUGAS EDUWORK/project3.png" alt="Proyek 3">
+          <b>Proyek 3</b><br>
+          Pembuatan Kapal Pesanan Shank Corp
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+      <h3>Contact Me</h3>
+      <form>
+        <input type="text" placeholder="Nama" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="Pesan..." rows="5" required></textarea>
+        <button type="submit">Kirim</button>
+      </form>
+    </section>
+  </main>
+
+  <footer id="footer">
+    <p>&copy; 2025 Ace D Portggas. All Rights Reserved.</p>
+  </footer>
+</body>
+</html>
