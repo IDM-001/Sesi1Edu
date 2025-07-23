@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halaman Toko</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    /* ==== CSS STYLING ==== */
+    .produk-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .produk-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    }
+    .product-card {
+      border: 1px solid #ddd;
+      padding: 10px;
+      background: #fff;
+      transition: transform 0.2s ease;
+      border-radius: 8px;
+    }
+    .product-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      border-color: cyan;
+    }
+    .cart-hover-icon {
+      z-index: 10;
+    }
+    .text-dark {
+      color: #000 !important;
+    }
+    #cartList li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #000;
+    }
+    #cartList button {
+      margin-left: 10px;
+    }
+    .empty-cart {
+      text-align: center;
+      padding: 20px;
+    }
+    .empty-cart img {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+    .detail-label {
+      border-top: 1px dashed #ccc;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      padding-top: 5px;
+      color: #555;
+    }
+    #cartToggleBtn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 1060;
+    }
+  </style>
+</head>
+<body class="bg-dark text-white">
+  <div class="container py-5">
+    <h2 class="text-center text-info mb-4">Toko Produk</h2>
+
+    <!-- Filter Section -->
+    <div class="mb-3">
+      <h4 class="text-warning">FILTER</h4>
+    </div>
+    <div class="row mb-4 border border-info p-3 rounded">
+      <div class="col-md-3">
+        <select class="form-select" id="filterKategori">
+          <option value="">Semua Kategori</option>
+          <option value="Elektronik">Elektronik</option>
+          <option value="Fashion">Fashion</option>
+          <option value="Makanan">Makanan</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <select class="form-select" id="filterHarga">
+          <option value="">Urutkan Harga</option>
+          <option value="asc">Harga Terendah</option>
+          <option value="desc">Harga Tertinggi</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" id="filterCari" placeholder="Cari produk...">
+      </div>
+      <div class="col-md-3">
+        <button class="btn btn-info w-100" onclick="tampilkanProduk()"><i class="bi bi-funnel"></i> Filter</button>
+      </div>
+    </div>
+
+    <!-- Produk Section Title -->
+    <div class="mb-3 mt-4">
+      <h4 class="text-light">Daftar Produk</h4>
+    </div>
+
+    <!-- Produk Grid -->
+    <div class="row" id="produkContainer"></div>
+  </div>
+
+  <!-- Toggle Cart Button -->
+  <button id="cartToggleBtn" class="btn btn-warning">
+    <i class="bi bi-cart"></i> <span id="cartCount">0</span>
+  </button>
+
+  <!-- Mini Cart -->
+  <div id="miniCart" class="position-fixed top-0 end-0 bg-white border shadow p-3 mt-5 me-3" style="width: 300px; display: none; z-index: 1050;">
+    <h6 class="text-dark">🛒 Keranjang Belanja</h6>
+    <ul id="cartList" class="list-unstyled"></ul>
+    <div id="emptyCartMessage" class="empty-cart d-none">
+      <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png" alt="Empty">
+      <p class="text-dark">Keranjang belanja Anda masih kosong</p>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between">
+      <strong class="text-dark">Total:</strong> <span id="cartTotal" class="text-dark">Rp 0</span>
+    </div>
+    <button class="btn btn-danger btn-sm w-100 mt-2">Checkout</button>
+  </div>
+
+  <!-- ==== SCRIPT LOGIC ==== -->
+  <script>
+    const produkList = [
+      { nama: "Smartphone X", harga: 3500000, deskripsi: "HP canggih masa kini", kategori: "Elektronik", gambar: "https://via.placeholder.com/200" },
+      { nama: "Kaos One Piece", harga: 120000, deskripsi: "Kaos keren untuk fans", kategori: "Fashion", gambar: "https://via.placeholder.com/200" },
+      { nama: "Laptop Z", harga: 7500000, deskripsi: "Laptop untuk kerja dan gaming", kategori: "Elektronik", gambar: "https://via.placeholder.com/200" },
+      { nama: "Bakso Frozen", harga: 50000, deskripsi: "Bakso instan beku", kategori: "Makanan", gambar: "https://via.placeholder.com/200" },
+      { nama: "Celana Cargo", harga: 150000, deskripsi: "Cocok buat jalan santai", kategori: "Fashion", gambar: "https://via.placeholder.com/200" }
+    ];
+
+    let cart = [];
+
+    document.addEventListener("click", function (event) {
+      const miniCart = document.getElementById("miniCart");
+      const toggleBtn = document.getElementById("cartToggleBtn");
+      if (!miniCart.contains(event.target) && !toggleBtn.contains(event.target)) {
+        miniCart.style.display = "none";
+      }
+    });
+
+    document.getElementById("cartToggleBtn").addEventListener("click", () => {
+      const miniCart = document.getElementById("miniCart");
+      miniCart.style.display = miniCart.style.display === "none" ? "block" : "none";
+    });
+
+    function showCartIcon(card) {
+      card.querySelector('.cart-hover-icon').classList.remove('d-none');
+    }
+
+    function hideCartIcon(card) {
+      card.querySelector('.cart-hover-icon').classList.add('d-none');
+    }
+
+    function addToCart(nama, harga) {
+      const existing = cart.find(item => item.nama === nama);
+      if (existing) {
+        existing.jumlah += 1;
+      } else {
+        cart.push({ nama, harga, jumlah: 1 });
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const cartList = document.getElementById('cartList');
+      const cartTotal = document.getElementById('cartTotal');
+      const cartCount = document.getElementById('cartCount');
+      const emptyMessage = document.getElementById('emptyCartMessage');
+
+      let total = 0;
+      let totalItem = 0;
+      cartList.innerHTML = '';
+
+      if (cart.length === 0) {
+        emptyMessage.classList.remove('d-none');
+      } else {
+        emptyMessage.classList.add('d-none');
+      }
+
+      cart.forEach((item, i) => {
+        const subtotal = item.harga * item.jumlah;
+        total += subtotal;
+        totalItem += item.jumlah;
+        cartList.innerHTML += `
+          <li>
+            <span>${item.nama} x ${item.jumlah} - Rp ${subtotal.toLocaleString()}</span>
+            <button class="btn btn-sm btn-link text-danger float-end" onclick="removeFromCart(${i})">&times;</button>
+          </li>`;
+      });
+      cartTotal.textContent = `Rp ${total.toLocaleString()}`;
+      cartCount.textContent = totalItem;
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+    }
+
+    function tampilkanProduk() {
+      const container = document.getElementById("produkContainer");
+      const kategori = document.getElementById("filterKategori").value.toLowerCase();
+      const urutHarga = document.getElementById("filterHarga").value;
+      const keyword = document.getElementById("filterCari").value.toLowerCase();
+
+      let hasil = produkList.filter(p => {
+        return (
+          (kategori === "" || p.kategori.toLowerCase() === kategori) &&
+          (keyword === "" || p.nama.toLowerCase().includes(keyword) || p.deskripsi.toLowerCase().includes(keyword))
+        );
+      });
+
+      if (urutHarga === "asc") hasil.sort((a, b) => a.harga - b.harga);
+      else if (urutHarga === "desc") hasil.sort((a, b) => b.harga - a.harga);
+
+      container.innerHTML = hasil.length === 0
+        ? '<div class="col text-center"><p class="text-warning">Tidak ada produk ditemukan.</p></div>'
+        : hasil.map(p => `
+            <div class="col-md-4 mb-4">
+              <div class="product-card position-relative" onmouseover="showCartIcon(this)" onmouseout="hideCartIcon(this)">
+                <img src="${p.gambar}" class="img-fluid" alt="${p.nama}">
+                <div class="cart-hover-icon position-absolute top-0 end-0 p-2 d-none">
+                  <button onclick="addToCart('${p.nama}', ${p.harga})" class="btn btn-sm btn-warning">
+                    <i class="bi bi-cart-plus"></i>
+                  </button>
+                </div>
+                <h5 class="mt-2 text-dark">${p.nama}</h5>
+                <p class="text-dark">Rp ${p.harga.toLocaleString()}</p>
+                <p class="detail-label">${p.deskripsi}</p>
+              </div>
+            </div>
+          `).join("");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      tampilkanProduk();
+    });
+  </script>
+</body>
+</html>
