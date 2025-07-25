@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Portofolio Saya</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom CSS for elegant and modern design */
+        :root {
+            --primary-bg: #F8F9FA; /* Very Light Gray */
+            --secondary-bg: #E9ECEF; /* Slightly darker gray */
+            --text-color: #343A40; /* Dark Gray */
+            --heading-color: #212529; /* Near Black */
+            --primary-color: #4A4E69; /* Dark Blue-Gray */
+            --secondary-color: #778DA9; /* Muted Blue */
+            --accent-color: #2A9D8F; /* Teal */
+            --border-color: #DEE2E6; /* Light border */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--heading-color);
+            font-weight: 600;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-color);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--heading-color) !important;
+        }
+
+        .nav-link {
+            color: var(--text-color) !important;
+            font-weight: 500;
+            margin: 0 0.8rem;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Language Switcher Styling */
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .language-switcher .form-check-label {
+            margin-right: 0.5rem;
+            margin-left: 0.5rem; /* Space between text and toggle */
+        }
+
+        /* Hero Section */
+        #hero {
+            background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        #hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            animation: fadeInDown 1s ease-out forwards;
+        }
+
+        #hero p {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out forwards;
+            animation-delay: 0.3s;
+        }
+
+        #hero .btn-primary {
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0.6s;
+        }
+
+        /* General Section Styling */
+        section {
+            padding: 5rem 0;
+            opacity: 0; /* Initial state for animation */
+            transform: translateY(20px); /* Initial state for animation */
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        section.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        #about .img-fluid {
+            border-radius: 1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        #about .img-fluid:hover {
+            transform: scale(1.02);
+        }
+
+        /* Skills Section */
+        .skill-item {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-item i {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .progress {
+            height: 0.6rem;
+            border-radius: 0.3rem;
+            background-color: var(--secondary-bg);
+        }
+
+        .progress-bar {
+            background-color: var(--accent-color);
+            border-radius: 0.3rem;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Portfolio Section */
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 250px; /* Fixed height for consistency */
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(var(--primary-color-rgb, 74, 78, 105), 0.85); /* Using RGB for opacity */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-overlay h3 {
+            color: white;
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .portfolio-overlay p {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-overlay .btn {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+            border-radius: 0.3rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .portfolio-overlay .btn:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        /* Contact Section */
+        #contact .form-control {
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            box-shadow: none;
+            transition: border-color 0.3s ease;
+        }
+
+        #contact .form-control:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 0.25rem rgba(var(--accent-color-rgb, 42, 157, 143), 0.25);
+        }
+
+        #contact textarea {
+            min-height: 120px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--heading-color);
+            color: white;
+            padding: 2.5rem 0;
+            text-align: center;
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem;
+        }
+
+        footer .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 0.8rem;
+            transition: color 0.3s ease;
+        }
+
+        footer .social-icons a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            #hero h1 {
+                font-size: 2.5rem;
+            }
+
+            #hero p {
+                font-size: 1.2rem;
+            }
+
+            section {
+                padding: 3rem 0;
+            }
+
+            section h2 {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .navbar-nav {
+                text-align: center;
+                margin-top: 1rem;
+            }
+
+            .nav-link {
+                margin: 0.5rem 0;
+            }
+            .language-switcher {
+                justify-content: center;
+                margin-top: 1rem;
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#hero" id="navbarBrand">Portofolio Saya</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#hero" data-lang-key="navHome">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about" data-lang-key="navAbout">Tentang Saya</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills" data-lang-key="navSkills">Keahlian</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio" data-lang-key="navPortfolio">Portofolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact" data-lang-key="navContact">Kontak</a>
+                    </li>
+                    <li class="nav-item d-flex align-items-center">
+                        <div class="language-switcher">
+                            <span class="lang-text" id="langId">ID</span>
+                            <div class="form-check form-switch ms-2 me-2">
+                                <input class="form-check-input" type="checkbox" id="languageToggle">
+                                <label class="form-check-label" for="languageToggle" id="langEn">EN</label>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="d-flex align-items-center">
+        <div class="container text-center">
+            <h1 class="display-4" data-lang-key="heroTitle">Halo, Saya [Nama Anda]</h1>
+            <p class="lead" data-lang-key="heroSubtitle">Seorang [Profesi Anda] dengan passion dalam [Bidang Minat Anda].</p>
+            <a href="#portfolio" class="btn btn-primary btn-lg" data-lang-key="heroButton">Lihat Portofolio</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <h2 class="mb-5" data-lang-key="aboutTitle">Tentang Saya</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-4 mb-lg-0">
+                    <!-- Dummy photo for profile -->
+                    <img src="https://placehold.co/600x400/4A4E69/FFFFFF?text=Foto+Profil+Anda" class="img-fluid" alt="Foto Profil">
+                </div>
+                <div class="col-lg-7">
+                    <p data-lang-key="aboutParagraph1">Halo! Saya [Nama Anda], seorang [Profesi Anda] dengan pengalaman dalam [sebutkan beberapa bidang utama, contoh: pengembangan web, desain UI/UX, analisis data]. Saya memiliki hasrat besar untuk menciptakan solusi yang inovatif dan efektif yang tidak hanya fungsional tetapi juga estetis.</p>
+                    <p data-lang-key="aboutParagraph2">Selama karir saya, saya telah mengerjakan berbagai proyek, mulai dari [jenis proyek 1, contoh: membangun aplikasi web responsif] hingga [jenis proyek 2, contoh: merancang antarmuka pengguna yang intuitif]. Saya selalu berusaha untuk mempelajari teknologi dan metodologi terbaru untuk memberikan hasil terbaik.</p>
+                    <p data-lang-key="aboutParagraph3">Di luar pekerjaan, saya menikmati [hobi/minat, contoh: membaca buku, hiking, bermain musik]. Saya percaya bahwa keseimbangan antara pekerjaan dan kehidupan pribadi sangat penting untuk kreativitas dan produktivitas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="bg-light py-5">
+        <div class="container">
+            <h2 class="mb-5" data-lang-key="skillsTitle">Keahlian Saya</h2>
+            <div class="row text-center">
+                <!-- Skill 1 -->
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="skill-item">
+                        <i class="fab fa-html5"></i>
+                        <h3 data-lang-key="skillHtmlCss">HTML5 & CSS3</h3>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 95%;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <small>95%</small>
+                    </div>
+                </div>
+                <!-- Skill 2 -->
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="skill-item">
+                        <i class="fab fa-js"></i>
+                        <h3 data-lang-key="skillJs">JavaScript</h3>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <small>85%</small>
+                    </div>
+                </div>
+                <!-- Skill 3 -->
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="skill-item">
+                        <i class="fab fa-bootstrap"></i>
+                        <h3 data-lang-key="skillBootstrap">Bootstrap</h3>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <small>90%</small>
+                    </div>
+                </div>
+                <!-- Skill 4 -->
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="skill-item">
+                        <i class="fab fa-react"></i>
+                        <h3 data-lang-key="skillReact">React.js</h3>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <small>75%</small>
+                    </div>
+                </div>
+                <!-- Skill 5 -->
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="skill-item">
+                        <i class="fas fa-database"></i>
+                        <h3 data-lang-key="skillDatabase">Database (SQL/NoSQL)</h3>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <small>70%</small>
+                    </div>
+                </div>
+                <!-- Skill 6 -->
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="skill-item">
+                        <i class="fas fa-paint-brush"></i>
+                        <h3 data-lang-key="skillUiUx">Desain UI/UX</h3>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <small>80%</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-5">
+        <div class="container">
+            <h2 class="mb-5" data-lang-key="portfolioTitle">Portofolio Saya</h2>
+            <div class="row">
+                <!-- Project 1 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="portfolio-item">
+                        <img src="https://placehold.co/600x400/4A4E69/FFFFFF?text=Proyek+Web+1" alt="Proyek Web 1" class="img-fluid">
+                        <div class="portfolio-overlay">
+                            <h3 data-lang-key="project1Title">Proyek Web Responsif</h3>
+                            <p data-lang-key="project1Desc">Pengembangan situs web e-commerce modern dengan desain responsif.</p>
+                            <a href="#" class="btn" data-lang-key="viewDetail">Lihat Detail</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="portfolio-item">
+                        <img src="https://placehold.co/600x400/778DA9/FFFFFF?text=Aplikasi+Mobile" alt="Aplikasi Mobile" class="img-fluid">
+                        <div class="portfolio-overlay">
+                            <h3 data-lang-key="project2Title">Aplikasi Mobile Interaktif</h3>
+                            <p data-lang-key="project2Desc">Desain dan pengembangan aplikasi mobile untuk manajemen tugas.</p>
+                            <a href="#" class="btn" data-lang-key="viewDetail">Lihat Detail</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="portfolio-item">
+                        <img src="https://placehold.co/600x400/2A9D8F/FFFFFF?text=Sistem+Informasi" alt="Sistem Informasi" class="img-fluid">
+                        <div class="portfolio-overlay">
+                            <h3 data-lang-key="project3Title">Sistem Informasi Manajemen</h3>
+                            <p data-lang-key="project3Desc">Pembangunan sistem untuk efisiensi operasional perusahaan.</p>
+                            <a href="#" class="btn" data-lang-key="viewDetail">Lihat Detail</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 4 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="portfolio-item">
+                        <img src="https://placehold.co/600x400/4A4E69/FFFFFF?text=Desain+UI/UX" alt="Desain UI/UX" class="img-fluid">
+                        <div class="portfolio-overlay">
+                            <h3 data-lang-key="project4Title">Desain UI/UX Aplikasi</h3>
+                            <p data-lang-key="project4Desc">Perancangan antarmuka pengguna yang intuitif dan menarik.</p>
+                            <a href="#" class="btn" data-lang-key="viewDetail">Lihat Detail</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 5 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="portfolio-item">
+                        <img src="https://placehold.co/600x400/778DA9/FFFFFF?text=Analisis+Data" alt="Analisis Data" class="img-fluid">
+                        <div class="portfolio-overlay">
+                            <h3 data-lang-key="project5Title">Visualisasi Data Interaktif</h3>
+                            <p data-lang-key="project5Desc">Proyek visualisasi data untuk laporan bisnis yang kompleks.</p>
+                            <a href="#" class="btn" data-lang-key="viewDetail">Lihat Detail</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 6 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="portfolio-item">
+                        <img src="https://placehold.co/600x400/2A9D8F/FFFFFF?text=Landing+Page" alt="Landing Page" class="img-fluid">
+                        <div class="portfolio-overlay">
+                            <h3 data-lang-key="project6Title">Desain Landing Page Konversi Tinggi</h3>
+                            <p data-lang-key="project6Desc">Pembuatan landing page untuk kampanye pemasaran digital.</p>
+                            <a href="#" class="btn" data-lang-key="viewDetail">Lihat Detail</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 7 (New Dummy Data) -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="portfolio-item">
+                        <img src="https://placehold.co/600x400/4A4E69/FFFFFF?text=Sistem+Pembayaran" alt="Sistem Pembayaran" class="img-fluid">
+                        <div class="portfolio-overlay">
+                            <h3 data-lang-key="project7Title">Sistem Pembayaran Aman</h3>
+                            <p data-lang-key="project7Desc">Pengembangan modul pembayaran terintegrasi untuk platform e-commerce.</p>
+                            <a href="#" class="btn" data-lang-key="viewDetail">Lihat Detail</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 8 (New Dummy Data) -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="portfolio-item">
+                        <img src="https://placehold.co/600x400/778DA9/FFFFFF?text=Dashboard+Analitik" alt="Dashboard Analitik" class="img-fluid">
+                        <div class="portfolio-overlay">
+                            <h3 data-lang-key="project8Title">Dashboard Analitik Kustom</h3>
+                            <p data-lang-key="project8Desc">Pembuatan dashboard interaktif untuk memantau kinerja bisnis.</p>
+                            <a href="#" class="btn" data-lang-key="viewDetail">Lihat Detail</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 9 (New Dummy Data) -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="portfolio-item">
+                        <img src="https://placehold.co/600x400/2A9D8F/FFFFFF?text=Game+Sederhana" alt="Game Sederhana" class="img-fluid">
+                        <div class="portfolio-overlay">
+                            <h3 data-lang-key="project9Title">Game Web Sederhana</h3>
+                            <p data-lang-key="project9Desc">Pengembangan game berbasis web menggunakan JavaScript murni.</p>
+                            <a href="#" class="btn" data-lang-key="viewDetail">Lihat Detail</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-light py-5">
+        <div class="container">
+            <h2 class="mb-5" data-lang-key="contactTitle">Hubungi Saya</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <p class="text-center mb-4" data-lang-key="contactIntro">Tertarik untuk bekerja sama atau ingin tahu lebih banyak? Jangan ragu untuk menghubungi saya!</p>
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label" data-lang-key="contactNameLabel">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="name" data-lang-key="contactNamePlaceholder" placeholder="Masukkan nama Anda" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label" data-lang-key="contactEmailLabel">Alamat Email</label>
+                            <input type="email" class="form-control" id="email" data-lang-key="contactEmailPlaceholder" placeholder="Masukkan email Anda" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label" data-lang-key="contactSubjectLabel">Subjek</label>
+                            <input type="text" class="form-control" id="subject" data-lang-key="contactSubjectPlaceholder" placeholder="Subjek pesan Anda" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label" data-lang-key="contactMessageLabel">Pesan Anda</label>
+                            <textarea class="form-control" id="message" rows="5" data-lang-key="contactMessagePlaceholder" placeholder="Tulis pesan Anda di sini..." required></textarea>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg" data-lang-key="contactButton">Kirim Pesan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4">
+        <div class="container">
+            <div class="social-icons mb-3">
+                <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="mb-0" data-lang-key="footerText">&copy; 2025 [Nama Anda]. Semua Hak Dilindungi.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS CDN (Bundle with Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animation on scroll using Intersection Observer
+        const sections = document.querySelectorAll('section');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const sectionObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    // Optionally, stop observing once animated
+                    // observer.unobserve(entry.target);
+                } else {
+                    // Optional: remove 'animate' class if you want animation to re-trigger on scroll back up
+                    // entry.target.classList.remove('animate');
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // Animate progress bars when skills section is in view
+        const skillsSection = document.getElementById('skills');
+        const progressBars = document.querySelectorAll('.progress-bar');
+
+        const skillsObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    progressBars.forEach(bar => {
+                        const width = bar.style.width;
+                        bar.style.width = '0%'; // Reset to 0 before animating
+                        setTimeout(() => {
+                            bar.style.width = width; // Animate to target width
+                        }, 100); // Small delay to ensure reset takes effect
+                    });
+                    observer.unobserve(entry.target); // Stop observing after animation
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5 // Trigger when 50% of the section is visible
+        });
+
+        skillsObserver.observe(skillsSection);
+
+        // Simple form submission (for demonstration, no backend)
+        document.querySelector('#contact form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Pesan Anda telah terkirim! (Ini adalah demo, tidak ada backend)');
+            this.reset(); // Clear the form
+        });
+
+        // Set primary color RGB for rgba background in JS
+        document.documentElement.style.setProperty('--primary-color-rgb', '74, 78, 105');
+        document.documentElement.style.setProperty('--accent-color-rgb', '42, 157, 143');
+
+        // --- Language Switcher Logic ---
+        const translations = {
+            id: {
+                pageTitle: "Portofolio Saya",
+                navbarBrand: "Portofolio Saya",
+                navHome: "Beranda",
+                navAbout: "Tentang Saya",
+                navSkills: "Keahlian",
+                navPortfolio: "Portofolio",
+                navContact: "Kontak",
+                heroTitle: "Halo, Saya [Nama Anda]",
+                heroSubtitle: "Seorang [Profesi Anda] dengan passion dalam [Bidang Minat Anda].",
+                heroButton: "Lihat Portofolio",
+                aboutTitle: "Tentang Saya",
+                aboutParagraph1: "Halo! Saya [Nama Anda], seorang [Profesi Anda] dengan pengalaman dalam pengembangan web, desain UI/UX, analisis data. Saya memiliki hasrat besar untuk menciptakan solusi yang inovatif dan efektif yang tidak hanya fungsional tetapi juga estetis.",
+                aboutParagraph2: "Selama karir saya, saya telah mengerjakan berbagai proyek, mulai dari membangun aplikasi web responsif hingga merancang antarmuka pengguna yang intuitif. Saya selalu berusaha untuk mempelajari teknologi dan metodologi terbaru untuk memberikan hasil terbaik.",
+                aboutParagraph3: "Di luar pekerjaan, saya menikmati membaca buku, hiking, bermain musik. Saya percaya bahwa keseimbangan antara pekerjaan dan kehidupan pribadi sangat penting untuk kreativitas dan produktivitas.",
+                skillsTitle: "Keahlian Saya",
+                skillHtmlCss: "HTML5 & CSS3",
+                skillJs: "JavaScript",
+                skillBootstrap: "Bootstrap",
+                skillReact: "React.js",
+                skillDatabase: "Database (SQL/NoSQL)",
+                skillUiUx: "Desain UI/UX",
+                portfolioTitle: "Portofolio Saya",
+                project1Title: "Proyek Web Responsif",
+                project1Desc: "Pengembangan situs web e-commerce modern dengan desain responsif.",
+                project2Title: "Aplikasi Mobile Interaktif",
+                project2Desc: "Desain dan pengembangan aplikasi mobile untuk manajemen tugas.",
+                project3Title: "Sistem Informasi Manajemen",
+                project3Desc: "Pembangunan sistem untuk efisiensi operasional perusahaan.",
+                project4Title: "Desain UI/UX Aplikasi",
+                project4Desc: "Perancangan antarmuka pengguna yang intuitif dan menarik.",
+                project5Title: "Visualisasi Data Interaktif",
+                project5Desc: "Proyek visualisasi data untuk laporan bisnis yang kompleks.",
+                project6Title: "Desain Landing Page Konversi Tinggi",
+                project6Desc: "Pembuatan landing page untuk kampanye pemasaran digital.",
+                project7Title: "Sistem Pembayaran Aman",
+                project7Desc: "Pengembangan modul pembayaran terintegrasi untuk platform e-commerce.",
+                project8Title: "Dashboard Analitik Kustom",
+                project8Desc: "Pembuatan dashboard interaktif untuk memantau kinerja bisnis.",
+                project9Title: "Game Web Sederhana",
+                project9Desc: "Pengembangan game berbasis web menggunakan JavaScript murni.",
+                viewDetail: "Lihat Detail",
+                contactTitle: "Hubungi Saya",
+                contactIntro: "Tertarik untuk bekerja sama atau ingin tahu lebih banyak? Jangan ragu untuk menghubungi saya!",
+                contactNameLabel: "Nama Lengkap",
+                contactNamePlaceholder: "Masukkan nama Anda",
+                contactEmailLabel: "Alamat Email",
+                contactEmailPlaceholder: "Masukkan email Anda",
+                contactSubjectLabel: "Subjek",
+                contactSubjectPlaceholder: "Subjek pesan Anda",
+                contactMessageLabel: "Pesan Anda",
+                contactMessagePlaceholder: "Tulis pesan Anda di sini...",
+                contactButton: "Kirim Pesan",
+                footerText: "&copy; 2025 [Nama Anda]. Semua Hak Dilindungi."
+            },
+            en: {
+                pageTitle: "My Portfolio",
+                navbarBrand: "My Portfolio",
+                navHome: "Home",
+                navAbout: "About Me",
+                navSkills: "Skills",
+                navPortfolio: "Portfolio",
+                navContact: "Contact",
+                heroTitle: "Hello, I'm [Your Name]",
+                heroSubtitle: "A [Your Profession] with a passion for [Your Area of Interest].",
+                heroButton: "View Portfolio",
+                aboutTitle: "About Me",
+                aboutParagraph1: "Hello! I'm [Your Name], a [Your Profession] with experience in web development, UI/UX design, data analysis. I have a great passion for creating innovative and effective solutions that are not only functional but also aesthetic.",
+                aboutParagraph2: "Throughout my career, I have worked on various projects, ranging from building responsive web applications to designing intuitive user interfaces. I always strive to learn the latest technologies and methodologies to deliver the best results.",
+                aboutParagraph3: "Outside of work, I enjoy reading books, hiking, playing music. I believe that a balance between work and personal life is essential for creativity and productivity.",
+                skillsTitle: "My Skills",
+                skillHtmlCss: "HTML5 & CSS3",
+                skillJs: "JavaScript",
+                skillBootstrap: "Bootstrap",
+                skillReact: "React.js",
+                skillDatabase: "Database (SQL/NoSQL)",
+                skillUiUx: "UI/UX Design",
+                portfolioTitle: "My Portfolio",
+                project1Title: "Responsive Web Project",
+                project1Desc: "Development of a modern e-commerce website with responsive design.",
+                project2Title: "Interactive Mobile Application",
+                project2Desc: "Design and development of a mobile application for task management.",
+                project3Title: "Management Information System",
+                project3Desc: "Building systems for efficient company operations.",
+                project4Title: "Application UI/UX Design",
+                project4Desc: "Designing intuitive and attractive user interfaces.",
+                project5Title: "Interactive Data Visualization",
+                project5Desc: "Data visualization project for complex business reports.",
+                project6Title: "High-Conversion Landing Page Design",
+                project6Desc: "Creation of landing pages for digital marketing campaigns.",
+                project7Title: "Secure Payment System",
+                project7Desc: "Development of an integrated payment module for e-commerce platforms.",
+                project8Title: "Custom Analytics Dashboard",
+                project8Desc: "Creation of interactive dashboards to monitor business performance.",
+                project9Title: "Simple Web Game",
+                project9Desc: "Development of a web-based game using pure JavaScript.",
+                viewDetail: "View Detail",
+                contactTitle: "Contact Me",
+                contactIntro: "Interested in working together or want to know more? Feel free to contact me!",
+                contactNameLabel: "Full Name",
+                contactNamePlaceholder: "Enter your name",
+                contactEmailLabel: "Email Address",
+                contactEmailPlaceholder: "Enter your email",
+                contactSubjectLabel: "Subject",
+                contactSubjectPlaceholder: "Subject of your message",
+                contactMessageLabel: "Your Message",
+                contactMessagePlaceholder: "Write your message here...",
+                contactButton: "Send Message",
+                footerText: "&copy; 2025 [Your Name]. All Rights Reserved."
+            }
+        };
+
+        const languageToggle = document.getElementById('languageToggle');
+        const htmlElement = document.documentElement;
+
+        // Function to apply translations
+        function applyLanguage(lang) {
+            htmlElement.lang = lang; // Set HTML lang attribute
+            document.getElementById('pageTitle').textContent = translations[lang].pageTitle;
+            document.getElementById('navbarBrand').textContent = translations[lang].navbarBrand;
+
+            // Update navigation links
+            document.querySelector('[data-lang-key="navHome"]').textContent = translations[lang].navHome;
+            document.querySelector('[data-lang-key="navAbout"]').textContent = translations[lang].navAbout;
+            document.querySelector('[data-lang-key="navSkills"]').textContent = translations[lang].navSkills;
+            document.querySelector('[data-lang-key="navPortfolio"]').textContent = translations[lang].navPortfolio;
+            document.querySelector('[data-lang-key="navContact"]').textContent = translations[lang].navContact;
+
+            // Update Hero section
+            document.querySelector('[data-lang-key="heroTitle"]').textContent = translations[lang].heroTitle;
+            document.querySelector('[data-lang-key="heroSubtitle"]').textContent = translations[lang].heroSubtitle;
+            document.querySelector('[data-lang-key="heroButton"]').textContent = translations[lang].heroButton;
+
+            // Update About section
+            document.querySelector('[data-lang-key="aboutTitle"]').textContent = translations[lang].aboutTitle;
+            document.querySelector('[data-lang-key="aboutParagraph1"]').textContent = translations[lang].aboutParagraph1;
+            document.querySelector('[data-lang-key="aboutParagraph2"]').textContent = translations[lang].aboutParagraph2;
+            document.querySelector('[data-lang-key="aboutParagraph3"]').textContent = translations[lang].aboutParagraph3;
+
+            // Update Skills section
+            document.querySelector('[data-lang-key="skillsTitle"]').textContent = translations[lang].skillsTitle;
+            document.querySelector('[data-lang-key="skillHtmlCss"]').textContent = translations[lang].skillHtmlCss;
+            document.querySelector('[data-lang-key="skillJs"]').textContent = translations[lang].skillJs;
+            document.querySelector('[data-lang-key="skillBootstrap"]').textContent = translations[lang].skillBootstrap;
+            document.querySelector('[data-lang-key="skillReact"]').textContent = translations[lang].skillReact;
+            document.querySelector('[data-lang-key="skillDatabase"]').textContent = translations[lang].skillDatabase;
+            document.querySelector('[data-lang-key="skillUiUx"]').textContent = translations[lang].skillUiUx;
+
+            // Update Portfolio section
+            document.querySelector('[data-lang-key="portfolioTitle"]').textContent = translations[lang].portfolioTitle;
+            document.querySelectorAll('.portfolio-overlay').forEach(overlay => {
+                const projectTitleElement = overlay.querySelector('h3');
+                const projectDescElement = overlay.querySelector('p');
+                const viewDetailButton = overlay.querySelector('.btn');
+
+                // Get the data-lang-key from the title element to map it to the correct translation
+                const titleKey = projectTitleElement.getAttribute('data-lang-key');
+                const descKey = projectDescElement.getAttribute('data-lang-key');
+
+                if (titleKey && translations[lang][titleKey]) {
+                    projectTitleElement.textContent = translations[lang][titleKey];
+                }
+                if (descKey && translations[lang][descKey]) {
+                    projectDescElement.textContent = translations[lang][descKey];
+                }
+                if (viewDetailButton && translations[lang].viewDetail) {
+                    viewDetailButton.textContent = translations[lang].viewDetail;
+                }
+            });
+
+            // Update Contact section
+            document.querySelector('[data-lang-key="contactTitle"]').textContent = translations[lang].contactTitle;
+            document.querySelector('[data-lang-key="contactIntro"]').textContent = translations[lang].contactIntro;
+            document.querySelector('[data-lang-key="contactNameLabel"]').textContent = translations[lang].contactNameLabel;
+            document.querySelector('[data-lang-key="contactNamePlaceholder"]').placeholder = translations[lang].contactNamePlaceholder;
+            document.querySelector('[data-lang-key="contactEmailLabel"]').textContent = translations[lang].contactEmailLabel;
+            document.querySelector('[data-lang-key="contactEmailPlaceholder"]').placeholder = translations[lang].contactEmailPlaceholder;
+            document.querySelector('[data-lang-key="contactSubjectLabel"]').textContent = translations[lang].contactSubjectLabel;
+            document.querySelector('[data-lang-key="contactSubjectPlaceholder"]').placeholder = translations[lang].contactSubjectPlaceholder;
+            document.querySelector('[data-lang-key="contactMessageLabel"]').textContent = translations[lang].contactMessageLabel;
+            document.querySelector('[data-lang-key="contactMessagePlaceholder"]').placeholder = translations[lang].contactMessagePlaceholder;
+            document.querySelector('[data-lang-key="contactButton"]').textContent = translations[lang].contactButton;
+
+            // Update Footer
+            document.querySelector('[data-lang-key="footerText"]').textContent = translations[lang].footerText;
+
+            // Update language labels next to toggle
+            document.getElementById('langId').style.fontWeight = (lang === 'id' ? 'bold' : 'normal');
+            document.getElementById('langEn').style.fontWeight = (lang === 'en' ? 'bold' : 'normal');
+        }
+
+        // Event listener for language toggle
+        languageToggle.addEventListener('change', function() {
+            const selectedLang = this.checked ? 'en' : 'id';
+            localStorage.setItem('portfolioLang', selectedLang); // Save preference
+            applyLanguage(selectedLang);
+        });
+
+        // Load language preference on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('portfolioLang') || 'id'; // Default to Indonesian
+            if (savedLang === 'en') {
+                languageToggle.checked = true;
+            } else {
+                languageToggle.checked = false;
+            }
+            applyLanguage(savedLang);
+        });
+
+    </script>
+</body>
+</html>
